@@ -10,6 +10,7 @@ import BootstrapVue from 'bootstrap-vue'
 Vue.use(VueRouter,BootstrapVue)
 
 const routes = [
+ 
   {
     path: '/',
     name: 'home',
@@ -45,10 +46,14 @@ const routes = [
     name:'panama',
     component:() => import(/* webpackChunkName: "panama" */ "../views/Panama.vue"),
   },
+  
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history',
+  linkExactActiveClass:"vue-school-active-class",
 })
 
 export default router
+
