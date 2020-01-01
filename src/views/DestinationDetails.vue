@@ -16,14 +16,20 @@ import store from "@/store.js";
 export default {
     data() {
         return {
-            destinationId:this.$route.params.id,
+            // slug:this.$route.params.slug,
+        }
+    },
+    props:{
+        slug:{
+            type:String,
+            required:true,
         }
     },
     computed: {
         destination()
         {
             return store.destinations.find(
-                destination => destination.id === this.destinationId
+                destination => destination.slug === this.slug
             )
         }
     },

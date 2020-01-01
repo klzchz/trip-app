@@ -13,7 +13,7 @@
                </li>
                <li class="links" v-for="destination in destinations" :key="destination.name"  >
                    
-                   <router-link :to="{name:'DestinationDetails',params:{id:destination.id}}" v-text="destination.name"></router-link> 
+                   <router-link :to="{name:'DestinationDetails',params:{slug:destination.slug}}" v-text="destination.name"></router-link> 
                </li>
           </ul>
     </nav>
@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             destinations: store.destinations,
-            destinationId: this.$route.params.id
+            // slug: this.$route.params.slug
         }
     },
    

@@ -5,10 +5,10 @@
       <div class="destinations">
       <div v-for="(destination) in destinations" :key="destination.name">
       
-            <router-link :to="{name: 'DestinationDetails',params:{id:destination.id}}" v-text="destination.name" ></router-link>
+            <router-link :to="{name: 'DestinationDetails',params:{slug:destination.slug}}" v-text="destination.name" ></router-link>
 
             <figure>
-                <router-link :to="{name: 'DestinationDetails', params:{id:destination.id}}" >
+                <router-link :to="{name: 'DestinationDetails', params:{slug:destination.slug}}" >
                     <img :src="require(`@/assets/${destination.image}`)" :alt="destination.name">
                 </router-link>
             </figure>
