@@ -1,13 +1,31 @@
 <template>
-    <div>
-        
+    <div> 
         <section class="destination">
             <h1>{{destination.name}}</h1>
+              <div class="destination-details">
+                    <img :src="require(`@/assets/${destination.image}`)" :alt="destination.name">
+                    <p v-text="destination.description"></p>
+                </div>
         </section>
-        <div class="destination-details">
-                <img :src="require(`@/assets/${destination.image}`)" :alt="destination.name">
-                <p v-text="destination.description"></p>
-        </div>
+        <section class="experiences">
+            <h2  v-text="`Top destinations in ${destination.name}`"></h2>
+            <div class="cards">
+                <div v-for="experience in destination.experiences" :key="experience.slug" class="card">
+
+                    <router-link :to="{
+                        name:'experienceDetails',
+                        params:{experienceSlug : experience.slug}
+                        }" >
+                        
+                    <img :src="require(`@/assets/${experience.image}`)" :alt="experience.name">
+                    <span class="card__text" v-text="experience.name">
+                       
+                    </span>
+                     </router-link>
+                </div>
+            </div>
+            <router-view :key="$route.path"/>
+        </section>
     </div>
 </template>
 
@@ -17,6 +35,8 @@ export default {
     data() {
         return {
             // slug:this.$route.params.slug,
+            // experiences:destination.experiences,
+            
         }
     },
     props:{
@@ -31,7 +51,8 @@ export default {
             return store.destinations.find(
                 destination => destination.slug === this.slug
             )
-        }
+        },
+       
     },
 }
 </script>
@@ -51,5 +72,26 @@ p{
     margin:0 40px;
     font-size:20px;
     text-align :left;
+}
+.cards {
+  display: flex;
+  justify-content: space-between;
+}
+.cards img {
+  max-height: 200px;
+}
+.card {
+  padding: 0 20px;
+  position: relative;
+}
+.card__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: none;
 }
 </style>
