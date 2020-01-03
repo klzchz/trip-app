@@ -6,6 +6,7 @@ import BootstrapVue from 'bootstrap-vue'
 // import Hawaii from '../views/Hawaii.vue'
 // import Jamaica from '../views/Jamaica.vue'
 // import Panama from '../views/Panama.vue'
+import store from '@/store.js';
 
 Vue.use(VueRouter,BootstrapVue)
 
@@ -59,7 +60,24 @@ const routes = [
         component:()=>import(/* webpackChunckName: "experienceDetails"*/"@/views/ExperienceDetails.vue"),
         props:true,
       }
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+      const exists = store.destinations.find(
+        destination =>  destination.slug === to.params.slug
+      )
+      if(exists)
+      {
+        next()
+      }else{
+        next({name: "notFound"})
+      }
+    }
+  },
+  {
+    path:"/404",
+    alias:"*",
+    name: "notFound",
+    component:()=>import(/*webpackChunckName: "notFound"*/"@/views/NotFound.vue")
   }
   
 ]
