@@ -11,6 +11,8 @@ import store from '@/store.js';
 Vue.use(VueRouter,BootstrapVue)
 
 const routes = [
+
+  
  
   {
     path: '/',
@@ -90,12 +92,18 @@ const router = new VueRouter({
   {
     if(savedPosition)
     {
-      return savedPosition
+      return savedPosition;
+
     }else{
-      const position = {}
+
+      const position = {};
+
       if(to.hash)
       {
-        position.selector=to.hash;
+        position.selector = to.hash;
+        if(to.hash === '#experience'){
+          position.offset = {y:140}
+        }
         if(document.querySelector(to.hash))
         {
           return position;
