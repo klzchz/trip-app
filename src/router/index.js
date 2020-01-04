@@ -50,6 +50,7 @@ const routes = [
     name:'panama',
     component:() => import(/* webpackChunkName: "panama" */ "../views/Panama.vue"),
   },
+
   {
     path:"/destination/:slug",
     name:"DestinationDetails",
@@ -75,6 +76,18 @@ const routes = [
       }
     }
   },
+  {
+    path:"/user",
+    name:"user",
+    component:()=>import(/*webpackChunckName: "User"*/"@/views/User.vue"),
+    meta:{requiresAuth:true}
+  },
+  {
+    path:'login',
+    name:"login",
+    component:()=>import(/*webpackChunckName: Login*/"@/views/Login.vue")
+  },
+
   {
     path:"/404",
     alias:"*",
@@ -113,8 +126,27 @@ const router = new VueRouter({
     }
   }
 
+});
 
+router.beforeEach((to, from, next) => {
+  // to and from are both route objects. must call `next`.
+ 
+    if(to.matched.some(record=>record.meta.requiresAuth))
+       // if(to.meta.requiresAuth)
+    {
+      if(!store.user){
+          next({
+            name:"login"
+          });
+      }else{
+          next();
+      }
+    }else{
+        next();
+    }
 })
+
+
 
 export default router
 
